@@ -1,0 +1,30 @@
+{
+  "name": "EXT-ScreenTouch",
+  "version": "1.0.0",
+  "rev": "220310",
+  "description": "GA EXT ScreenTouch",
+  "main": "EXT-ScreenTouch.js",
+  "scripts": {
+    "preinstall": "installer/preinstall.sh",
+    "postinstall": "installer/postinstall.sh",
+    "update": "installer/update.sh"
+  },
+  "keywords": [
+    "magic mirror",
+    "module",
+    "screen",
+    "EXT",
+    "Touch",
+    "GoogleAssistant"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bugsounet/EXT-ScreenTouch"
+  },
+  "author": "bugsounet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://forum.bugsounet.fr/"
+  },
+  "homepage": "https://wiki.bugsounet.fr/en/EXT-ScreenTouch"
+}
