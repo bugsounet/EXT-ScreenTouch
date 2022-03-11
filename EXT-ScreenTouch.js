@@ -39,7 +39,13 @@ Module.register("EXT-ScreenTouch", {
     let clickTimer = null
     let TouchScreen = document.getElementById("EXT-SCREEN")
     if (mode > 3) mode = 3
-
+    if (!TouchScreen) {
+      this.sendNotification("EXT_ALERT", {
+        message: "EXT-Screen is not installed!",
+        type: "error",
+      })
+      return
+    }
     switch (mode) {
       case 1:
         /** mode 1 **/
@@ -48,12 +54,12 @@ Module.register("EXT-ScreenTouch", {
           if (clickCount === 1) {
             clickTimer = setTimeout(() => {
               clickCount = 0
-              this.sendSocketNotification("WAKEUP")
+              this.sendNotification("EXT_SCREEN-WAKEUP")
             }, 400)
           } else if (clickCount === 2) {
             clearTimeout(clickTimer)
             clickCount = 0
-            this.sendSocketNotification("FORCE_END")
+            this.sendNotification("EXT_SCREEN-END")
           }
         }, false)
         break
@@ -61,13 +67,13 @@ Module.register("EXT-ScreenTouch", {
         /** mode 2 **/
         TouchScreen.addEventListener('click', () => {
           if (clickCount) return clickCount = 0
-          if (!this.hidden) this.sendSocketNotification("WAKEUP")
+          if (!this.hidden) this.sendNotification("EXT_SCREEN-WAKEUP")
         }, false)
 
         window.addEventListener('long-press', () => {
           clickCount = 1
-          if (this.hidden) this.sendSocketNotification("WAKEUP")
-          else this.sendSocketNotification("FORCE_END")
+          if (this.hidden) this.sendNotification("EXT_SCREEN-WAKEUP")
+          else this.sendNotification("EXT_SCREEN-END")
           clickTimer = setTimeout(() => { clickCount = 0 }, 400)
         }, false)
         break
@@ -78,19 +84,19 @@ Module.register("EXT-ScreenTouch", {
           if (clickCount === 1) {
             clickTimer = setTimeout(() => {
               clickCount = 0
-              this.sendSocketNotification("WAKEUP")
+              this.sendNotification("EXT_SCREEN-WAKEUP")
             }, 400)
           } else if (clickCount === 2) {
             clearTimeout(clickTimer)
             clickCount = 0
-            this.sendSocketNotification("FORCE_END")
+            this.sendNotification("EXT_SCREEN-END")
           }
         }, false)
 
         window.addEventListener('click', () => {
           if (!this.hidden) return
           clickCount = 3
-          this.sendSocketNotification("WAKEUP")
+          this.sendNotification("EXT_SCREEN-WAKEUP")
           clickTimer = setTimeout(() => { clickCount = 0 }, 400)
         }, false)
         break
